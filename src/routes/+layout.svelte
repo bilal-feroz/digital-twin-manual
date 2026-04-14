@@ -1,57 +1,51 @@
 <script>
 	import favicon from '$lib/assets/favicon.svg';
-	import { page } from '$app/state';
 
 	let { children } = $props();
-
-	const links = [
-		{ href: '/current', label: 'Current' },
-		{ href: '/conveyor', label: 'Conveyor' }
-	];
 </script>
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-<nav class="topnav">
-	{#each links as link}
-		<a href={link.href} class:active={page.url.pathname === link.href}>
-			{link.label}
-		</a>
-	{/each}
+<nav class="nav-tabs">
+	<a href="/current">Arm</a>
+	<a href="/conveyor">Conveyor</a>
 </nav>
 
-<main class="page">
-	{@render children()}
-</main>
+{@render children()}
 
 <style>
-	.topnav {
-		position: sticky;
+	.nav-tabs {
+		position: fixed;
 		top: 0;
-		z-index: 10;
+		left: 0;
+		right: 0;
+		z-index: 9999;
 		display: flex;
-		gap: 12px;
-		padding: 12px 16px;
-		background: white;
-		border-bottom: 1px solid #e6e6e6;
+		gap: 0;
+		background: #1a1a1a;
+		padding: 0 16px;
+		border-bottom: 1px solid #333;
 	}
 
-	.topnav a {
+	.nav-tabs a {
+		padding: 14px 24px;
+		color: #888;
 		text-decoration: none;
-		color: #333;
-		font-weight: 600;
-		padding: 6px 10px;
-		border-radius: 8px;
+		font-weight: 500;
+		font-size: 14px;
+		border-bottom: 2px solid transparent;
+		transition: all 0.2s ease;
 	}
 
-	.topnav a.active {
-		background: #111827;
-		color: white;
+	.nav-tabs a:hover {
+		color: #bbb;
+		background: rgba(255, 255, 255, 0.05);
 	}
 
-	.page {
-		min-height: calc(100vh - 52px);
+	.nav-tabs a.active {
+		color: #fff;
+		border-bottom-color: #3b82f6;
 	}
 </style>
